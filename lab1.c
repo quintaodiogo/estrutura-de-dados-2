@@ -8,7 +8,7 @@ void Selecao(int A[], int n)
     // Função de ordenação por seleção
     int i, j, Min;
     int x;
-    for (i = 0; i < n - 1; i++)
+    for (i = 0; i <= n - 1; i++)
     {
         Min = i;
         for (j = i + 1; j < n; j++)
