@@ -51,7 +51,7 @@ int main()
     // Exibição dos resultados
     printf("\nO vetor após a ordenação é: \n");
     printarVetor(v1, TAMANHO);
-    printf("\nO menor valor do vetor fixo é: %d\n", v1[0]); //Usa-se v1[0] para printar o menor valor pois o vetor
+    printf("\nO menor valor do vetor fixo é: %d\n", v1[0]); //Usa-se v1[0] para imprimir o menor valor pois o vetor
                                                             //já está ordenado de forma crescente.
     return 0;
 }
