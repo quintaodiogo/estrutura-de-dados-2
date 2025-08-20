@@ -1,6 +1,7 @@
-/*Diogo de Paula Quintão e João Pedro da Costa Reis(202206124)*/
+/*Diogo de Paula Quintão(202207108) e João Pedro da Costa Reis(202206124)*/
 #include <stdio.h>
 #define TAMANHO 6
+#include <locale.h>
 
 void Selecao(int A[], int n)
 {
@@ -36,6 +37,7 @@ void printarVetor(int v[], int n)
 
 int main()
 {
+    setlocale(LC_ALL, "Portuguese");
     // Declaração de variáveis
     int i, v1[TAMANHO] = {8, 4, 1, 7, 3, 1};
     
