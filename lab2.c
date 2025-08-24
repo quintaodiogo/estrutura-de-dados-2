@@ -5,23 +5,23 @@
 
 void Insercao(int A[], int n)
 {
-    int i, j;
+    int i,j;
     int x;
-    for (i = 1; i <= n; i++)
+    for(i=2; i <= n; i++)
     {
         x = A[i];
         j = i - 1;
-        A[0] = x; /* sentinela */
-        while (x < A[j])
+        A[0] = x; //Sentinela
+        while(x < A[j])
         {
-            A[j + 1] = A[j];
-            j = j - 1;
+            A[j+1] = A[j];
+            j--;
         }
-        A[j + 1] = x;
+        A[j+1] = x;
     }
 }
 
-void printarVetor(int v[], int n)
+void imprimirVetor(int v[], int n)
 {
     // Função para imprimir os elementos do vetor
     int i;
@@ -40,15 +40,15 @@ int main()
 
     // Exibição dos vetores originais
     printf("O vetor original é: \n");
-    printarVetor(v1, TAMANHO);
+    imprimirVetor(v1, TAMANHO);
 
     // Ordenação dos vetores
-    Insercao(v1, TAMANHO);
+    Insercao(v1, TAMANHO - 1);
 
     // Exibição dos resultados
     printf("\nO vetor após a ordenação é: \n");
-    printarVetor(v1, TAMANHO);
+    imprimirVetor(v1, TAMANHO);
 
-    printf("\nO maior valor do vetor fixo é: %d\n", v1[TAMANHO - 1]); // Usa-se v1[TAMANHO - 1] para printar o maior valor pois o vetor
+    printf("\nO maior valor do vetor é: %d\n", v1[TAMANHO - 1]); // Usa-se v1[TAMANHO - 1] para printar o maior valor (Acessa a posição 5)
     return 0;
 }
