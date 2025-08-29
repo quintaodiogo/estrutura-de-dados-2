@@ -14,7 +14,7 @@ void shellSort(int A[], int n)
     {
         h = (h * 3) + 1;
     }
-    while (h > 0)
+    while (h > 1)
     {
         h /= 3;
         for (i = h; i < n; i++)
@@ -28,7 +28,7 @@ void shellSort(int A[], int n)
             }
             A[j + h] = temp;
         }
-        printf("Vetor h-ordenado para h = %d: ", A);
+        printf("Vetor h-ordenado para h = %d: ", h);
         imprimirVetor(A, n);
     }
 }
@@ -51,7 +51,7 @@ int main()
     int i, v1[TAMANHO] = {8, 4, 1, 7, 3};
 
     // Exibição dos vetores originais
-    printf("O vetor original é: \n");
+    printf("O vetor original é: ");
     imprimirVetor(v1, TAMANHO);
 
     // Ordenação dos vetores
