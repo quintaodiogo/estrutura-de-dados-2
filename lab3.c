@@ -3,8 +3,19 @@
 /*Implementação do Método de Ordenação Shellsort, seguindo a sequência de Knuth (h=(h*3)+1).
 Imprimir o vetor para cada sequência de h-ordenado.*/
 #include <stdio.h>
-#define TAMANHO 5
+#define TAMANHO 6
 #include <locale.h>
+
+void imprimirVetor(int v[], int n)
+{
+    // Função para imprimir os elementos do vetor
+    int i;
+    for (i = 0; i < n; i++)
+    {
+        printf("%d ", v[i]);
+    }
+    printf("\n");
+}
 
 void shellSort(int A[], int n)
 {
@@ -33,27 +44,23 @@ void shellSort(int A[], int n)
     }
 }
 
-void imprimirVetor(int v[], int n)
-{
-    // Função para imprimir os elementos do vetor
-    int i;
-    for (i = 0; i < n; i++)
-    {
-        printf("%d ", v[i]);
-    }
-    printf("\n");
-}
-
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
     // Declaração de variáveis
-    int i, v1[TAMANHO] = {8, 4, 1, 7, 3};
+    int i, v1[TAMANHO] = {11, 8, 4, 1, 7, 3};
 
     // Exibição dos vetores originais
     printf("O vetor original é: ");
     imprimirVetor(v1, TAMANHO);
+    printf("\n");
 
     // Ordenação dos vetores
     shellSort(v1, TAMANHO);
+
+    // Exibição dos resultados
+    printf("\nO vetor após a ordenação é: \n");
+    imprimirVetor(v1, TAMANHO);
+
+    return 0;
 }
