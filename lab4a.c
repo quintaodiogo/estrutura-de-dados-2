@@ -41,9 +41,9 @@ void quickSort(int A[], int n)
     ordena(0, n -1, A);
 }
 
+// Função para imprimir os elementos do vetor
 void imprimirVetor(int v[], int n)
 {
-    // Função para imprimir os elementos do vetor
     for (int i = 0; i < n; i++)
     {
         printf("%d ", v[i]);
