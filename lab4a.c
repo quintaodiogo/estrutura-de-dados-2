@@ -44,8 +44,7 @@ void quickSort(int A[], int n)
 void imprimirVetor(int v[], int n)
 {
     // Função para imprimir os elementos do vetor
-    int i;
-    for (i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
         printf("%d ", v[i]);
     }
@@ -56,7 +55,7 @@ int main()
 {
     setlocale(LC_ALL, "Portuguese");
     // Declaração de variáveis
-    int i, v1[TAMANHO] = {8, 9, 4, 1, 7, 3};
+    int v1[TAMANHO] = {8, 9, 4, 1, 7, 3};
 
     // Exibição dos vetores originais
     printf("O vetor original é: ");
