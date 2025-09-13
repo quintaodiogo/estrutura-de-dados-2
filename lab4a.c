@@ -2,8 +2,8 @@
 
 /*1) Implementação do método QuickSort conforme descrição nos slides do moodle (https://turing.inf.ufg.br/mod/resource/view.php?id=63103) e no livro "Projeto de Algoritmos com implementações em Java e C++"*/
 #include <stdio.h>
-#define TAMANHO 6
 #include <locale.h>
+#define TAMANHO 6
 
 void particao(int esq, int dir, int *i, int *j, int A[])
 {
@@ -62,7 +62,7 @@ int main()
     printf("O vetor original é: ");
     imprimirVetor(v1, TAMANHO);
 
-    // Ordenação dos vetores
+    // Ordenação do vetor utilizando Quick Sort
     quickSort(v1, TAMANHO);
 
     // Exibição dos vetores ordenados
