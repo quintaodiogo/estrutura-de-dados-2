@@ -13,7 +13,7 @@ void bubbleSort(int A[], int n)
     bool troca = true;
     for (i = n - 1; i >= 1 && troca; i--)
     {
-        troca = false; // Inicializa a variável booleana como falso (0)
+        troca = false;
         for (j = 0; j < i; j++)
         {
             if (A[j] > A[j + 1])
@@ -21,7 +21,7 @@ void bubbleSort(int A[], int n)
                 aux = A[j];
                 A[j] = A[j + 1];
                 A[j + 1] = aux;
-                troca = true; // Define a variável booleana como verdadeiro (1) se uma troca ocorrer
+                troca = true; 
             }
         }
     }
@@ -38,7 +38,6 @@ void imprimirVetor(int v[], int n){
 
 int main()
 {
-    setlocale(LC_ALL, "Portuguese");
     setlocale(LC_ALL, "Portuguese");
     // Declaração de variáveis
     int v1[TAMANHO] = {3, 0, 1, 8, 7, 2, 5, 4, 9, 6};
