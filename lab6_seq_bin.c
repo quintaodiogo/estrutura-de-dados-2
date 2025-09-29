@@ -3,20 +3,35 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
 
+#define TAMANHO 10
 typedef long TChave;
 
+/**
+ * Estrutura que representa um item do dicionário.
+ * Cada item contém apenas uma chave numérica.
+ */
 typedef struct {
-    TChave chave; 
+    TChave chave;
 } TItem;
 
+/**
+ * Estrutura que representa o dicionário dinâmico.
+ * Utiliza um array dinâmico que cresce conforme necessário.
+ * 
+ * Campos:
+ *   v   - Ponteiro para o array de itens (índices 0..n-1)
+ *   n   - Número atual de itens válidos no dicionário
+ *   max - Capacidade máxima atual do array (pode crescer)
+ */
 typedef struct {
-    TItem *v; /* 0..n-1 */
-    int n;    /* número de itens válidos */
-    int max;  /* capacidade do vetor */
+    TItem *v; 
+    int n;    
+    int max;  
 } TDicionario;
 
-/* inicializa um dicionário */
+/* Inicializa um dicionário vazio com capacidade inicial de 10 elementos */
 void TDicionario_Inicio(TDicionario *t) {
     t->n = 0;
     t->max = 10;
@@ -27,7 +42,7 @@ void TDicionario_Inicio(TDicionario *t) {
     }
 }
 
-/* insere um registro no dicionário (0-based) */
+/* Insere um novo item no final do dicionário */
 void TDicionario_Insere(TDicionario *t, TItem *x) {
     if (t->n == t->max) {
         t->max *= 2;
@@ -41,26 +56,18 @@ void TDicionario_Insere(TDicionario *t, TItem *x) {
     t->n++;          /* aumenta n */
 }
 
-/* Pesquisa sequencial simples (0..n-1) */
-int PSequencial(TDicionario *A, TChave x) {
-    for (int i = 0; i < A->n; i++) {
-        if (A->v[i].chave == x) return i;
-    }
-    return -1; /* não encontrado */
-}
-
-/* Bubble Sort */
-void BubbleSort(TDicionario *A) {
-    if (A->n <= 1) return;
-    for (int i = 0; i < A->n - 1; i++) {
-        for (int j = 0; j < A->n - 1 - i; j++) {
-            if (A->v[j].chave > A->v[j+1].chave) {
-                TItem tmp = A->v[j];
-                A->v[j] = A->v[j+1];
-                A->v[j+1] = tmp;
-            }
+/* Pesquisa Sequencial */
+int PSequencial(TDicionario *A, TChave x)
+{
+    int i;
+    for (i = 0; i < A->n; i++)
+    {
+        if (A->v[i].chave == x)
+        {
+            return i;
         }
     }
+    return -1; 
 }
 
 /* Pesquisa Binária Estruturada (iterativa) */
@@ -74,7 +81,7 @@ int PBinaria(TDicionario *A, TChave x) {
             id = m - 1;
         else if (x > A->v[m].chave)
             ie = m + 1;
-        else /* x == A->v[m].chave */
+        else
             return m;
     }
     return -1;
@@ -92,11 +99,21 @@ int PBinaria_Recursiva(TDicionario *A, int ie, int id, TChave x) {
         return PBinaria_Recursiva(A, ie, meio - 1, x);
 }
 
-int PBinaria_recursivaExec(TDicionario *A, TChave x) {
-    return PBinaria_Recursiva(A, 0, A->n - 1, x);
+/* Bubble Sort */
+void BubbleSort(TDicionario *A) {
+    if (A->n <= 1) return;
+    for (int i = 0; i < A->n - 1; i++) {
+        for (int j = 0; j < A->n - 1 - i; j++) {
+            if (A->v[j].chave > A->v[j+1].chave) {
+                TItem tmp = A->v[j];
+                A->v[j] = A->v[j+1];
+                A->v[j+1] = tmp;
+            }
+        }
+    }
 }
 
-/* imprime chaves 0..n-1 */
+/* Imprime todas as chaves do dicionário em uma linha*/
 void imprime(TDicionario *A) {
     for (int i = 0; i < A->n; i++) {
         printf("%ld ", A->v[i].chave);
@@ -105,11 +122,13 @@ void imprime(TDicionario *A) {
 }
 
 int main(void) {
+    setlocale(LC_ALL, "Portuguese");
+  
     TDicionario dic;
     TDicionario_Inicio(&dic);
 
     /* Vetor de 10 inteiros desordenados */
-    long dados[10] = {34, 7, 23, 32, 5, 62, 31, 4, 18, 50};
+    long dados[TAMANHO] = {34, 7, 23, 32, 5, 62, 31, 4, 18, 50};
     TItem it;
     for (int i = 0; i < 10; i++) {
         it.chave = dados[i];
@@ -137,7 +156,7 @@ int main(void) {
     else
         printf("Pesquisa Binaria (iterativa): chave %ld NAO encontrada\n", chave);
 
-    int pos_bin_rec = PBinaria_recursivaExec(&dic, chave);
+    int pos_bin_rec = PBinaria_Recursiva(&dic, 0, dic.n - 1, chave);
     if (pos_bin_rec >= 0)
         printf("Pesquisa Binaria (recursiva): chave %ld encontrada em posicao %d\n", chave, pos_bin_rec);
     else
