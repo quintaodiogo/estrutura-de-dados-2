@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h> // Essencial para medir o tempo e para gerar números aleatórios
 #include "lista.h"
-#include "tabela_hash.h" // Inclui nosso TAD de Tabela Hash (que já inclui a lista)
+#include "tabela_hash.h"
 
 // --- Parte 1: Gerador de Strings Aleatórias ---
 
