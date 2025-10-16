@@ -9,6 +9,8 @@ typedef struct No {
 typedef struct TabelaHash {
     int tamanho;
     No **tabela;
+    int colisoes;
+    int insercoes;
 } TabelaHash;
 
 TabelaHash* criar_tabela(int M);
