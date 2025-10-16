@@ -8,13 +8,16 @@
 #include "hash.h"
 
 unsigned int funcao_hash(const char *chave, int tamanho_tabela){
-    unsigned long int hash = 5381;
+    unsigned long int hash = 5381;           // Valor inicial (número mágico do djb2)
     int c;
-
-    while((c = *chave++)){
-        hash = ((hash <<5) + hash) + c;
+    
+    while((c = *chave++)){                   // Pega cada caractere
+        hash = ((hash << 5) + hash) + c;     // hash = hash * 33 + c
+        //      ^^^^^^^^     ^^^^
+        //      hash * 32 + hash = hash * 33
     }
-    return hash % tamanho_tabela;
+    
+    return hash % tamanho_tabela;            // Garante índice válido
 }
 
 TabelaHash* criar_tabela(int M){
@@ -23,6 +26,8 @@ TabelaHash* criar_tabela(int M){
         return NULL;
     }
     th->tamanho = M;
+    th->colisoes = 0;      
+    th->insercoes = 0;
 
     th->tabela = (No**) calloc(M, sizeof(No*));
     if (th->tabela == NULL) {
