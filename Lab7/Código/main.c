@@ -18,19 +18,16 @@ char* gerar_string_aleatoria(int tamanho) {
         perror("Falha ao alocar string aleatoria");
         exit(1);
     }
-
     for (int i = 0; i < tamanho; i++) {
         int key = rand() % (sizeof(charset) - 1);
         resultado[i] = charset[key];
     }
-
     resultado[tamanho] = '\0'; 
     return resultado;
 }
 
 void executar_teste(int M, int N) {
     printf("=== INICIANDO TESTE COM M=%d e N=%d ===\n", M, N);
-
     char** strings_teste = (char**) malloc(N * sizeof(char*));
     if (strings_teste == NULL) {
         perror("Falha ao alocar vetor de strings");
@@ -39,22 +36,14 @@ void executar_teste(int M, int N) {
     for (int i = 0; i < N; i++) {
         strings_teste[i] = gerar_string_aleatoria(10);
     }
-
     TabelaHash* tabela = criar_tabela(M);
-
     clock_t inicio = clock();
-
     for (int i = 0; i < N; i++) {
         inserir_na_tabela(tabela, strings_teste[i]);
     }
-
     clock_t fim = clock();
-
     double tempo_execucao = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
-
-    printf("M=%-5d | N=%-6d | Colisões=%-6d | Tempo de execução=%.6f segundos\n\n",
-           M, N, tabela->colisoes, tempo_execucao);
-
+    printf("M=%-5d | N=%-6d | Colisões=%-6d | Tempo de execução=%.6f segundos\n\n", M, N, tabela->colisoes, tempo_execucao);
     liberar_tabela(tabela);
     for (int i = 0; i < N; i++) {
         free(strings_teste[i]);
@@ -68,7 +57,6 @@ int main() {
     srand(time(NULL));
     int valores_M[] = {31, 79, 151};  
     int num_M = sizeof(valores_M) / sizeof(valores_M[0]);
-
     int valores_N[] = {100, 1000, 10000};  
     int num_N = sizeof(valores_N) / sizeof(valores_N[0]);
 
@@ -77,6 +65,5 @@ int main() {
             executar_teste(valores_M[i], valores_N[j]);
         }
     }
-
     return 0;
 }
