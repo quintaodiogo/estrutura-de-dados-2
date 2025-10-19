@@ -1,3 +1,4 @@
+/*Diogo de Paula Quintão(202207108) e João Pedro da Costa Reis(202206124)*/
 #ifndef TABELA_HASH_H
 #define TABELA_HASH_H
 #include "lista.h" 
