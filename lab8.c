@@ -140,7 +140,7 @@ void caso4() {
     imprimir(raiz, 0);
 
     // Rotação à direita no nó 4
-    raiz->dir = rotacaoDireita(raiz->esq);
+    raiz->dir = rotacaoDireita(raiz->dir);
     // Rotação à direita no nó 8
     raiz = rotacaoEsquerda(raiz);
 
