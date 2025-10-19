@@ -126,9 +126,32 @@ void caso3() {
     imprimir(raiz, 0);
 }
 
+// Caso 4 - Rotação dupla (direita em 4, depois esquerda em 8)
+void caso4() {
+    printf("\n===== CASO 2: Rotação dupla (Dir em 4, Esq em 8) =====\n");
+    Node* raiz = novoNo(8);
+    raiz->dir = novoNo(4);
+    raiz->esq = novoNo(10);
+    raiz->dir->dir = novoNo(2);
+    raiz->dir->esq = novoNo(6);
+    raiz->dir->esq->dir = novoNo(5);
+
+    printf("\nÁrvore antes das rotações:\n");
+    imprimir(raiz, 0);
+
+    // Rotação à direita no nó 4
+    raiz->dir = rotacaoDireita(raiz->esq);
+    // Rotação à direita no nó 8
+    raiz = rotacaoEsquerda(raiz);
+
+    printf("\nÁrvore após as rotações:\n");
+    imprimir(raiz, 0);
+}
+
 int main() {
     caso1();
     caso2();
     caso3();
+    caso4();
     return 0;
 }
