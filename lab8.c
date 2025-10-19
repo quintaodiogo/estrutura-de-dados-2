@@ -21,16 +21,6 @@ Node* novoNo(int valor) {
     return novo;
 }
 
-// Inserção normal de árvore binária
-Node* inserir(Node* raiz, int valor) {
-    if (raiz == NULL) return novoNo(valor);
-    if (valor < raiz->valor)
-        raiz->esq = inserir(raiz->esq, valor);
-    else if (valor > raiz->valor)
-        raiz->dir = inserir(raiz->dir, valor);
-    return raiz;
-}
-
 // Altura da árvore
 int altura(Node* raiz) {
     if (raiz == NULL) return 0;
@@ -39,13 +29,10 @@ int altura(Node* raiz) {
     return (he > hd ? he : hd) + 1;
 }
 
-// Impressão da árvore "de lado"
-void imprimir(Node* raiz, int nivel) {
-    if (raiz == NULL) return;
-    imprimir(raiz->dir, nivel + 1);
-    for (int i = 0; i < nivel; i++) printf("    ");
-    printf("%d(h=%d)\n", raiz->valor, altura(raiz));
-    imprimir(raiz->esq, nivel + 1);
+// Fator de balanceamento
+int fatorBalanceamento(Node* raiz) {
+    if (raiz == NULL) return 0;
+    return altura(raiz->esq) - altura(raiz->dir);
 }
 
 // Rotações AVL
@@ -65,7 +52,52 @@ Node* rotacaoDireita(Node* p) {
     return q;
 }
 
-// Caso 1 - Rotação simples à esquerda
+// Inserção com balanceamento AVL 
+Node* inserir(Node* raiz, int valor) {
+    if (raiz == NULL) return novoNo(valor);
+    
+    if (valor < raiz->valor)
+        raiz->esq = inserir(raiz->esq, valor);
+    else if (valor > raiz->valor)
+        raiz->dir = inserir(raiz->dir, valor);
+    else
+        return raiz;
+    
+    int fb = fatorBalanceamento(raiz);
+    
+    // Caso Esquerda-Esquerda
+    if (fb > 1 && raiz->esq && valor < raiz->esq->valor)
+        return rotacaoDireita(raiz);
+    
+    // Caso Direita-Direita
+    if (fb < -1 && raiz->dir && valor > raiz->dir->valor)
+        return rotacaoEsquerda(raiz);
+    
+    // Caso Esquerda-Direita
+    if (fb > 1 && raiz->esq && valor > raiz->esq->valor) {
+        raiz->esq = rotacaoEsquerda(raiz->esq);
+        return rotacaoDireita(raiz);
+    }
+    
+    // Caso Direita-Esquerda
+    if (fb < -1 && raiz->dir && valor < raiz->dir->valor) {
+        raiz->dir = rotacaoDireita(raiz->dir);
+        return rotacaoEsquerda(raiz);
+    }
+    
+    return raiz;
+}
+
+// Impressão da árvore
+void imprimir(Node* raiz, int nivel) {
+    if (raiz == NULL) return;
+    imprimir(raiz->dir, nivel + 1);
+    for (int i = 0; i < nivel; i++) printf("    ");
+    printf("%d(h=%d, fb=%d)\n", raiz->valor, altura(raiz), fatorBalanceamento(raiz));
+    imprimir(raiz->esq, nivel + 1);
+}
+
+// Caso 1 - Rotação simples à esquerda (Direita-Direita)
 void caso1() {
     printf("\n===== CASO 1: Rotação simples à esquerda =====\n");
     Node* raiz = novoNo(8);
@@ -73,8 +105,7 @@ void caso1() {
     raiz->dir = novoNo(10);
     raiz->dir->esq = novoNo(9);
     raiz->dir->dir = novoNo(15);
-    raiz->dir->dir->esq = novoNo(12);
-
+    raiz->dir->dir->dir = novoNo(20); 
     printf("\nÁrvore antes da rotação:\n");
     imprimir(raiz, 0);
 
@@ -84,9 +115,9 @@ void caso1() {
     imprimir(raiz, 0);
 }
 
-// Caso 2 - Rotação dupla (esquerda em 4, depois direita em 8)
+// Caso 2 - Rotação dupla Esquerda-Direita
 void caso2() {
-    printf("\n===== CASO 2: Rotação dupla (Esq em 4, Dir em 8) =====\n");
+    printf("\n===== CASO 2: Rotação dupla (Esq-Dir) =====\n");
     Node* raiz = novoNo(8);
     raiz->esq = novoNo(4);
     raiz->dir = novoNo(10);
@@ -97,16 +128,14 @@ void caso2() {
     printf("\nÁrvore antes das rotações:\n");
     imprimir(raiz, 0);
 
-    // Rotação à esquerda no nó 4
     raiz->esq = rotacaoEsquerda(raiz->esq);
-    // Rotação à direita no nó 8
     raiz = rotacaoDireita(raiz);
 
     printf("\nÁrvore após as rotações:\n");
     imprimir(raiz, 0);
 }
 
-// Caso 3 - Rotação simples à direita
+// Caso 3 - Rotação simples à direita (Esquerda-Esquerda) - CORRIGIDO
 void caso3() {
     printf("\n===== CASO 3: Rotação simples à direita =====\n");
     Node* raiz = novoNo(8);
@@ -114,38 +143,58 @@ void caso3() {
     raiz->dir = novoNo(10);
     raiz->esq->esq = novoNo(2);
     raiz->esq->dir = novoNo(6);
-    raiz->esq->esq->dir = novoNo(5);
-
+    raiz->esq->esq->esq = novoNo(1); 
     printf("\nÁrvore antes da rotação:\n");
     imprimir(raiz, 0);
 
-    // Rotação simples à direita no nó 8
     raiz = rotacaoDireita(raiz);
 
     printf("\nÁrvore após rotação à direita:\n");
     imprimir(raiz, 0);
 }
 
-// Caso 4 - Rotação dupla (direita em 4, depois esquerda em 8)
+// Caso 4 - Rotação dupla Direita-Esquerda - CORRIGIDO
 void caso4() {
-    printf("\n===== CASO 4: Rotação dupla (Dir em 4, Esq em 8) =====\n");
+    printf("\n===== CASO 4: Rotação dupla (Dir-Esq) =====\n");
     Node* raiz = novoNo(8);
-    raiz->dir = novoNo(4);
-    raiz->esq = novoNo(10);
-    raiz->dir->dir = novoNo(2);
-    raiz->dir->esq = novoNo(6);
-    raiz->dir->esq->dir = novoNo(5);
+    raiz->esq = novoNo(4); 
+    raiz->dir = novoNo(12); 
+    raiz->dir->esq = novoNo(10);
+    raiz->dir->dir = novoNo(14);
+    raiz->dir->esq->esq = novoNo(9); 
 
     printf("\nÁrvore antes das rotações:\n");
     imprimir(raiz, 0);
 
-    // Rotação à direita no nó 4
     raiz->dir = rotacaoDireita(raiz->dir);
-    // Rotação à direita no nó 8
     raiz = rotacaoEsquerda(raiz);
 
     printf("\nÁrvore após as rotações:\n");
     imprimir(raiz, 0);
+}
+
+// Função para liberar memória
+void destruir(Node* raiz) {
+    if (raiz == NULL) return;
+    destruir(raiz->esq);
+    destruir(raiz->dir);
+    free(raiz);
+}
+
+// Demonstração de inserção com balanceamento automático
+void casoInsercaoAVL() {
+    printf("\n===== DEMONSTRAÇÃO: Inserção com balanceamento AVL =====\n");
+    Node* raiz = NULL;
+    int valores[] = {10, 20, 30, 40, 50, 25};
+    int n = sizeof(valores) / sizeof(valores[0]);
+    
+    for (int i = 0; i < n; i++) {
+        printf("\nInserindo %d:\n", valores[i]);
+        raiz = inserir(raiz, valores[i]);
+        imprimir(raiz, 0);
+    }
+    
+    destruir(raiz);
 }
 
 int main() {
@@ -153,5 +202,6 @@ int main() {
     caso2();
     caso3();
     caso4();
+    casoInsercaoAVL();
     return 0;
 }
