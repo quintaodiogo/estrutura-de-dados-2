@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h> 
+#include <locale.h>
 #include "lista.h"
 #include "tabela_hash.h"
 
@@ -54,6 +55,8 @@ void executar_teste(int M, int N) {
 
 
 int main() {
+    setlocale(LC_ALL, "Portuguese");
+    
     srand(time(NULL));
     int valores_M[] = {31, 79, 151};  
     int num_M = sizeof(valores_M) / sizeof(valores_M[0]);
