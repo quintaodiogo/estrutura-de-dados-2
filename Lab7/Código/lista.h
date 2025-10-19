@@ -13,9 +13,7 @@ typedef struct Lista {
 Lista* criar_lista();
 
 int inserir_na_lista(Lista* lista, const char* valor);
-
 void liberar_lista(Lista* lista);
-
 void imprimir_lista(Lista* lista);
 
 #endif 
