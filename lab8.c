@@ -1,4 +1,8 @@
 /*Diogo de Paula Quintão(202207108) e João Pedro da Costa Reis(202206124)*/
+//Implementação Árvores AVL (Enviar código fonte).
+//O código fonte deste trabalho deve apresentar a funcionalidade de inserção mantendo as restrições de AVL com as operações de rotação simples e  dupla nos dois sentidos (esquerda e direita).
+//Usar como testes os exemplos colocados na transparëncia (https://turing.inf.ufg.br/mod/resource/view.php?id=63278).
+
 #include <stdio.h>
 #include <stdlib.h>
 
