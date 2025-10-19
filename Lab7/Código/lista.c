@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "lista.h" // Inclui nossas próprias definições
-
-// Implementação das funções
+#include "lista.h" 
 
 Lista* criar_lista() {
     Lista* nova_lista = (Lista*) malloc(sizeof(Lista));
@@ -23,15 +21,13 @@ int inserir_na_lista(Lista* lista, const char* valor) {
     No* novo_no = (No*) malloc(sizeof(No));
     if (novo_no == NULL) {
         perror("Erro ao alocar memoria para o no");
-        exit(1); // Em um programa real, tratar o erro de forma mais elegante.
+        exit(1); 
     }
 
-    // Aloca memória para a string e a copia. Usamos strdup para isso.
-    // strdup = string duplicate (aloca memória e copia a string).
     novo_no->string = strdup(valor);
     if (novo_no->string == NULL) {
         perror("Erro ao alocar memoria para a string");
-        free(novo_no); // Libera o nó alocado
+        free(novo_no); 
         exit(1);
     }
 
@@ -49,13 +45,13 @@ void liberar_lista(Lista* lista) {
     No* proximo_no;
 
     while (atual != NULL) {
-        proximo_no = atual->proximo; // Guarda a referência para o próximo
-        free(atual->string);        // Libera a string duplicada
-        free(atual);                // Libera o nó atual
-        atual = proximo_no;         // Move para o próximo
+        proximo_no = atual->proximo; 
+        free(atual->string);        
+        free(atual);                
+        atual = proximo_no;         
     }
 
-    free(lista); // Libera a estrutura da lista
+    free(lista); 
 }
 
 void imprimir_lista(Lista* lista) {
