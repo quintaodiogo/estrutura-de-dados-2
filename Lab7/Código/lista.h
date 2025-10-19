@@ -1,3 +1,4 @@
+/*Diogo de Paula Quintão(202207108) e João Pedro da Costa Reis(202206124)*/
 #ifndef LISTA_H
 #define LISTA_H
 
