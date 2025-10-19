@@ -128,7 +128,7 @@ void caso3() {
 
 // Caso 4 - Rotação dupla (direita em 4, depois esquerda em 8)
 void caso4() {
-    printf("\n===== CASO 2: Rotação dupla (Dir em 4, Esq em 8) =====\n");
+    printf("\n===== CASO 4: Rotação dupla (Dir em 4, Esq em 8) =====\n");
     Node* raiz = novoNo(8);
     raiz->dir = novoNo(4);
     raiz->esq = novoNo(10);
