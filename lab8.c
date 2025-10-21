@@ -124,7 +124,7 @@ void caso3() {
     imprimir(raiz, 0);
 }
 
-// Caso 4 - Rotação dupla Direita-Esquerda - CORRIGIDO
+// Caso 4 - Rotação dupla Direita-Esquerda 
 void caso4() {
     printf("\n===== CASO 4: Rotação dupla (Dir-Esq) =====\n");
     Node* raiz = novoNo(8);
