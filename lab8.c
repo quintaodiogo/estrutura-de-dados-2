@@ -13,19 +13,16 @@ typedef struct Node {
     int altura;
 } Node;
 
-// Retorna a altura do nó
 int altura(Node* n) {
     if (n == NULL)
         return 0;
     return n->altura;
 }
 
-// Retorna o máximo entre dois inteiros
 int max(int a, int b) {
     return (a > b) ? a : b;
 }
 
-// Cria um novo nó
 Node* novoNo(int valor) {
     Node* novo = (Node*) malloc(sizeof(Node));
     novo->valor = valor;
@@ -35,9 +32,7 @@ Node* novoNo(int valor) {
     return novo;
 }
 
-// Rotação à direita
 Node* rotacaoDireita(Node* y) {
-    printf("  -> Rotação à direita no nó %d\n", y->valor);
     Node* x = y->esq;
     Node* T2 = x->dir;
     
@@ -50,9 +45,7 @@ Node* rotacaoDireita(Node* y) {
     return x;
 }
 
-// Rotação à esquerda
 Node* rotacaoEsquerda(Node* x) {
-    printf("  -> Rotação à esquerda no nó %d\n", x->valor);
     Node* y = x->dir;
     Node* T2 = y->esq;
     
@@ -74,7 +67,6 @@ int getBalance(Node* n) {
 
 // Inserção com balanceamento automático
 Node* inserir(Node* node, int valor) {
-    // 1. Inserção normal BST
     if (node == NULL)
         return novoNo(valor);
     
@@ -83,31 +75,24 @@ Node* inserir(Node* node, int valor) {
     else if (valor > node->valor)
         node->dir = inserir(node->dir, valor);
     else
-        return node; // Valores duplicados não são permitidos
+        return node; 
     
-    // 2. Atualiza a altura deste nó ancestral
     node->altura = 1 + max(altura(node->esq), altura(node->dir));
     
-    // 3. Obtém o fator de balanceamento
     int balance = getBalance(node);
     
-    // 4. Se o nó ficou desbalanceado, há 4 casos:
     
-    // Caso Esquerda-Esquerda
     if (balance > 1 && valor < node->esq->valor)
         return rotacaoDireita(node);
     
-    // Caso Direita-Direita
     if (balance < -1 && valor > node->dir->valor)
         return rotacaoEsquerda(node);
     
-    // Caso Esquerda-Direita
     if (balance > 1 && valor > node->esq->valor) {
         node->esq = rotacaoEsquerda(node->esq);
         return rotacaoDireita(node);
     }
     
-    // Caso Direita-Esquerda
     if (balance < -1 && valor < node->dir->valor) {
         node->dir = rotacaoDireita(node->dir);
         return rotacaoEsquerda(node);
@@ -116,7 +101,6 @@ Node* inserir(Node* node, int valor) {
     return node;
 }
 
-// Impressão da árvore "de lado"
 void imprimir(Node* raiz, int nivel) {
     if (raiz == NULL) return;
     
@@ -129,7 +113,6 @@ void imprimir(Node* raiz, int nivel) {
     imprimir(raiz->esq, nivel + 1);
 }
 
-// Percurso em ordem
 void emOrdem(Node* raiz) {
     if (raiz != NULL) {
         emOrdem(raiz->esq);
@@ -183,13 +166,13 @@ void caso3() {
     printf("\n===== CASO 3: Rotação Simples à Direita (LL) =====\n");
     Node* raiz = NULL;
     
-    printf("\nInserindo: 8, 10, 4, 6, 2, 3\n");
+    printf("\nInserindo: 8, 4, 10, 2, 6, 5\n");
     raiz = inserir(raiz, 8);
-    raiz = inserir(raiz, 10);
     raiz = inserir(raiz, 4);
-    raiz = inserir(raiz, 6);
+    raiz = inserir(raiz, 10);
     raiz = inserir(raiz, 2);
-    raiz = inserir(raiz, 3);
+    raiz = inserir(raiz, 6);
+    raiz = inserir(raiz, 5);
     
     printf("\nÁrvore final:\n");
     imprimir(raiz, 0);
@@ -207,8 +190,8 @@ void caso4() {
     raiz = inserir(raiz, 8);
     raiz = inserir(raiz, 4);
     raiz = inserir(raiz, 12);
-    raiz = inserir(raiz, 14);
     raiz = inserir(raiz, 10);
+    raiz = inserir(raiz, 14);
     raiz = inserir(raiz, 9);
     
     printf("\nÁrvore final:\n");
