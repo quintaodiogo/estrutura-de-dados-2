@@ -1,3 +1,5 @@
+/*Diogo de Paula Quintão(202207108) e João Pedro da Costa Reis(202206124)*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "arvore_b.h"
@@ -314,3 +316,4 @@ int main() {
 
     return 0;
 }
+
